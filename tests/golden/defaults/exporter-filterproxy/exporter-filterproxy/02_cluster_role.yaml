@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations: {}
+  labels:
+    app.kubernetes.io/managed-by: syn
+    app.kubernetes.io/name: exporter-filterproxy
+    name: syn-exporter-filterproxy
+  name: syn-exporter-filterproxy
+rules:
+  - nonResourceURLs:
+      - /metrics
+    verbs:
+      - get

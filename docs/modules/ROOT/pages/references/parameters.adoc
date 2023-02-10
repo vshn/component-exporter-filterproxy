@@ -10,10 +10,62 @@ default:: `syn-exporter-filterproxy`
 
 The namespace in which to deploy this component.
 
+== `images`
+
+[horizontal]
+type:: dictionary
+
+A dictionary of images used by this component.
+
+== `resources`
+
+[horizontal]
+type:: dict
+default::
++
+[source,yaml]
+----
+requests:
+  cpu: 200m
+  memory: 200Mi
+----
+
+This parameter allows users to configure the resource requests and limits for the proxy pod.
+
+NOTE: The provided value isn't validated and is used directly as the container's `resources`.
+
+== `replicas`
+
+[horizontal]
+type:: int
+default:: `2`
+
+The number or deployed replicas.
+
+
+== `config`
+
+[horizontal]
+type:: dict
+default:: `{}`
+
+The configuration for the exporter-filterproxy.
+Please consult [the upstream documentation]https://github.com/vshn/exporter-filterproxy.
 
 == Example
 
 [source,yaml]
 ----
 namespace: example-namespace
+replicas: 5
+config:
+  endpoints:
+    kube_state_metrics:
+      path: /kube-state-metrics
+      target: https://kubestatemetrics-infra.monitoring.svc.cluster.local:8443/metrics
+      refresh_interval: 5s
+      insecure_skip_verify: true
+      auth:
+        type: Kubernetes
 ----
+

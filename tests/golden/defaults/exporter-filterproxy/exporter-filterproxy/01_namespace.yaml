@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations: {}
+  labels:
+    name: syn-exporter-filterproxy
+  name: syn-exporter-filterproxy
