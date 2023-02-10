@@ -1,0 +1,4 @@
+parameters:
+  exporter_filterproxy:
+    =_metadata: {}
+    namespace: syn-exporter-filterproxy

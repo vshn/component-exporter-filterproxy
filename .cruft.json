@@ -1,0 +1,25 @@
+{
+  "template": "https://github.com/projectsyn/commodore-component-template.git",
+  "commit": "2e09191ab5f2b26f2098a1215594b561c6a59d97",
+  "checkout": "main",
+  "context": {
+    "cookiecutter": {
+      "name": "exporter-filterproxy",
+      "slug": "exporter-filterproxy",
+      "parameter_key": "exporter_filterproxy",
+      "test_cases": "defaults",
+      "add_lib": "n",
+      "add_pp": "n",
+      "add_golden": "y",
+      "add_matrix": "y",
+      "add_go_unit": "n",
+      "copyright_holder": "VSHN AG <info@vshn.ch>",
+      "copyright_year": "2023",
+      "github_owner": "vshn",
+      "github_name": "component-exporter-filterproxy",
+      "github_url": "https://github.com/vshn/component-exporter-filterproxy",
+      "_template": "https://github.com/projectsyn/commodore-component-template.git"
+    }
+  },
+  "directory": null
+}
