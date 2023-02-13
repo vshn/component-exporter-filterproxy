@@ -1,3 +1,11 @@
-# Overwrite parameters here
-
-# parameters: {...}
+parameters:
+  exporter_filterproxy:
+    config:
+      endpoints:
+        kube_state_metrics:
+          path: /kube-state-metrics
+          target: https://kubestatemetrics-infra.monitoring.svc.cluster.local:8443/metrics
+          refresh_interval: 5s
+          insecure_skip_verify: true
+          auth:
+            type: Kubernetes

@@ -2,3 +2,16 @@ parameters:
   exporter_filterproxy:
     =_metadata: {}
     namespace: syn-exporter-filterproxy
+
+    images:
+      exporter_filterproxy:
+        registry: ghcr.io
+        repository: vshn/exporter-filterproxy
+        tag: v0.1.0
+
+    replicas: 2
+    resources:
+      requests:
+        cpu: 200m
+        memory: 200Mi
+    config: {}

@@ -1,0 +1,15 @@
+apiVersion: v1
+data:
+  config.yml: "\"addr\": \":80\"\n\"endpoints\":\n  \"kube_state_metrics\":\n    \"\
+    auth\":\n      \"type\": \"Kubernetes\"\n    \"insecure_skip_verify\": true\n\
+    \    \"path\": \"/kube-state-metrics\"\n    \"refresh_interval\": \"5s\"\n   \
+    \ \"target\": \"https://kubestatemetrics-infra.monitoring.svc.cluster.local:8443/metrics\""
+kind: ConfigMap
+metadata:
+  annotations: {}
+  labels:
+    app.kubernetes.io/managed-by: syn
+    app.kubernetes.io/name: exporter-filterproxy
+    name: exporter-filterproxy
+  name: exporter-filterproxy
+  namespace: syn-exporter-filterproxy
