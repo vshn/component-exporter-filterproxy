@@ -12,3 +12,17 @@ rules:
       - /metrics
     verbs:
       - get
+  - apiGroups:
+      - ''
+    resources:
+      - endpoints
+    verbs:
+      - get
+      - watch
+      - list
+  - apiGroups:
+      - ''
+    resources:
+      - nodes/metrics
+    verbs:
+      - get

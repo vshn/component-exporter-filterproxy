@@ -24,6 +24,17 @@ local cluster_role = kube.ClusterRole('syn-exporter-filterproxy') {
       nonResourceURLs: [ '/metrics' ],
       verbs: [ 'get' ],
     },
+    {
+      apiGroups: [ '' ],
+      resources: [ 'endpoints' ],
+      verbs: [ 'get', 'watch', 'list' ],
+    },
+    {
+      apiGroups: [ '' ],
+      resources: [ 'nodes/metrics' ],
+      verbs: [ 'get' ],
+    },
+
   ],
 };
 local cluster_role_binding = kube.ClusterRoleBinding('syn-exporter-filterproxy') {
