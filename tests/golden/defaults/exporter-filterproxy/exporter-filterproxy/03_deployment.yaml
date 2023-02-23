@@ -36,7 +36,7 @@ spec:
             - --config
             - /etc/config/config.yml
           env: []
-          image: ghcr.io/vshn/exporter-filterproxy:v0.1.0
+          image: ghcr.io/vshn/exporter-filterproxy:v0.2.0
           imagePullPolicy: IfNotPresent
           name: proxy
           ports:
