@@ -53,7 +53,7 @@ local config = kube.ConfigMap('exporter-filterproxy') {
   },
   data: {
     'config.yml': std.manifestYamlDoc(params.config {
-      addr: ':80',
+      addr: ':8080',
     }),
   },
 };
@@ -82,7 +82,7 @@ local deployment = kube.Deployment('exporter-filterproxy') {
             },
             ports_: {
               metrics: {
-                containerPort: 80,
+                containerPort: 8080,
               },
             },
             volumeMounts_: {
