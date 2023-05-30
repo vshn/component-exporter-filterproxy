@@ -25,7 +25,7 @@ spec:
   template:
     metadata:
       annotations:
-        configHash: 62e4718a550bef30dff6f48af7825321
+        configHash: 70bbee8d9fd6d7d5b924f802c247e091
       labels:
         app.kubernetes.io/managed-by: syn
         app.kubernetes.io/name: exporter-filterproxy
@@ -40,7 +40,7 @@ spec:
           imagePullPolicy: IfNotPresent
           name: proxy
           ports:
-            - containerPort: 80
+            - containerPort: 8080
               name: metrics
           resources:
             requests:
