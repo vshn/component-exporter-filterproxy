@@ -1,6 +1,7 @@
 parameters:
   exporter_filterproxy:
-    =_metadata: {}
+    =_metadata:
+      multi_tenant: true
     namespace: syn-exporter-filterproxy
 
     images:
