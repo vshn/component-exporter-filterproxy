@@ -1,3 +1,51 @@
-# Overwrite parameters here
+parameters:
+  exporter_filterproxy:
+    config:
+      endpoints:
+        kube_state_metrics:
+          path: /kube-state-metrics
+          target: https://kube-prometheus-kube-state-metrics.prometheus-system.svc.cluster.local:8443/metrics
+          refresh_interval: 10s
+          insecure_skip_verify: true
+          auth:
+            type: Kubernetes
+        kubelet:
+          path: /kubelet
+          kubernetes_target:
+            endpoint:
+              name: kube-prometheus-kube-prome-kubelet
+              namespace: kube-system
+              port: 10250
+              path: /metrics
+              scheme: https
+          auth:
+            type: Kubernetes
+          refresh_interval: 10s
+          insecure_skip_verify: true
+        kubelet_cadvisor:
+          path: /kubelet-cadvisor
+          kubernetes_target:
+            endpoint:
+              name: kube-prometheus-kube-prome-kubelet
+              namespace: kube-system
+              port: 10250
+              path: /metrics/cadvisor
+              scheme: https
+          auth:
+            type: Kubernetes
+          refresh_interval: 10s
+          insecure_skip_verify: true
+        kubelet_probes:
+          path: /kubelet-probes
+          kubernetes_target:
+            endpoint:
+              name: kube-prometheus-kube-prome-kubelet
+              namespace: kube-system
+              port: 10250
+              path: /metrics/probes
+              scheme: https
+          auth:
+            type: Kubernetes
+          refresh_interval: 10s
+          insecure_skip_verify: true
 
-# parameters: {...}

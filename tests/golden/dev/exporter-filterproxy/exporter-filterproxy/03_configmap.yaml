@@ -1,0 +1,60 @@
+apiVersion: v1
+data:
+  config.yml: |-
+    "addr": ":8080"
+    "endpoints":
+      "kube_state_metrics":
+        "auth":
+          "type": "Kubernetes"
+        "insecure_skip_verify": true
+        "path": "/kube-state-metrics"
+        "refresh_interval": "10s"
+        "target": "https://kube-prometheus-kube-state-metrics.prometheus-system.svc.cluster.local:8443/metrics"
+      "kubelet":
+        "auth":
+          "type": "Kubernetes"
+        "insecure_skip_verify": true
+        "kubernetes_target":
+          "endpoint":
+            "name": "kube-prometheus-kube-prome-kubelet"
+            "namespace": "kube-system"
+            "path": "/metrics"
+            "port": 10250
+            "scheme": "https"
+        "path": "/kubelet"
+        "refresh_interval": "10s"
+      "kubelet_cadvisor":
+        "auth":
+          "type": "Kubernetes"
+        "insecure_skip_verify": true
+        "kubernetes_target":
+          "endpoint":
+            "name": "kube-prometheus-kube-prome-kubelet"
+            "namespace": "kube-system"
+            "path": "/metrics/cadvisor"
+            "port": 10250
+            "scheme": "https"
+        "path": "/kubelet-cadvisor"
+        "refresh_interval": "10s"
+      "kubelet_probes":
+        "auth":
+          "type": "Kubernetes"
+        "insecure_skip_verify": true
+        "kubernetes_target":
+          "endpoint":
+            "name": "kube-prometheus-kube-prome-kubelet"
+            "namespace": "kube-system"
+            "path": "/metrics/probes"
+            "port": 10250
+            "scheme": "https"
+        "path": "/kubelet-probes"
+        "refresh_interval": "10s"
+kind: ConfigMap
+metadata:
+  annotations: {}
+  labels:
+    app.kubernetes.io/managed-by: syn
+    app.kubernetes.io/name: exporter-filterproxy
+    name: exporter-filterproxy
+  name: exporter-filterproxy
+  namespace: syn-exporter-filterproxy

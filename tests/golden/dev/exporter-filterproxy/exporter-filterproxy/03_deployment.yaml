@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations: {}
+  labels:
+    app.kubernetes.io/managed-by: syn
+    app.kubernetes.io/name: exporter-filterproxy
+    name: exporter-filterproxy
+  name: exporter-filterproxy
+  namespace: syn-exporter-filterproxy
+spec:
+  minReadySeconds: 30
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/managed-by: syn
+      app.kubernetes.io/name: exporter-filterproxy
+      name: exporter-filterproxy
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        configHash: 342d46aece5636b624f86c71a474b9f7
+      labels:
+        app.kubernetes.io/managed-by: syn
+        app.kubernetes.io/name: exporter-filterproxy
+        name: exporter-filterproxy
+    spec:
+      containers:
+        - args:
+            - --config
+            - /etc/config/config.yml
+          env: []
+          image: ghcr.io/vshn/exporter-filterproxy:v0.2.0
+          imagePullPolicy: IfNotPresent
+          name: proxy
+          ports:
+            - containerPort: 8080
+              name: metrics
+          resources:
+            requests:
+              cpu: 200m
+              memory: 200Mi
+          securityContext:
+            runAsNonRoot: true
+          stdin: false
+          tty: false
+          volumeMounts:
+            - mountPath: /etc/config
+              name: config
+      imagePullSecrets: []
+      initContainers: []
+      serviceAccountName: exporter-filterproxy
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - configMap:
+            name: exporter-filterproxy
+          name: config

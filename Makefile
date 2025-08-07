@@ -82,3 +82,25 @@ $(test_instances):
 .PHONY: clean
 clean: ## Clean the project
 	rm -rf .cache compiled dependencies vendor helmcharts jsonnetfile*.json || true
+
+
+.PHONY: push-golden
+instance=dev
+repo=exporter-filterproxy
+cluster=https://kubernetes.default.svc
+push-golden: commodore_args += -f tests/$(instance).yml
+push-golden: clean gen-golden ## Push the target instance to the local forgejo instance, so it can be applied by argocd
+	cd tests/golden/$(instance)/exporter-filterproxy/exporter-filterproxy && \
+	git init --initial-branch=master && \
+	git add . && \
+	git commit -m "update" && \
+	git remote add origin http://gitea_admin:adminadmin@forgejo.127.0.0.1.nip.io:8088/gitea_admin/$(repo).git && \
+	git push -u origin master --force && \
+	rm -rf .git
+	yq eval-all '. as $$item ireduce ({}; . * $$item )' hack/base_app.yaml tests/golden/$(instance)/exporter-filterproxy/apps/exporter-filterproxy.yaml \
+	| yq '.metadata.name = "exporter-filterproxy"' | yq '.spec.source.repoURL = "http://forgejo-http.forgejo.svc:3000/gitea_admin/$(repo)"' \
+	| yq '.spec.destination.server = "$(cluster)"' | kubectl apply -f -
+
+.PHONY: push-non-converged
+push-non-converged: ## This pushes the configuration for a split setup to argocd
+	$(MAKE) push-golden -e instance=dev
